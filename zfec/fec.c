@@ -59,9 +59,9 @@ static gf gf_mul_table[256][256];
 
 #define gf_mul(x,y) gf_mul_table[x][y]
 
-#define USE_GF_MULC register gf * __gf_mulc_
+#define USE_GF_MULC gf __gf_mulc_[256]
 
-#define GF_MULC0(c) __gf_mulc_ = gf_mul_table[c]
+#define GF_MULC0(c) memcpy(__gf_mulc_, gf_mul_table[c], 256)
 #define GF_ADDMULC(dst, x) dst ^= __gf_mulc_[x]
 
 /*
